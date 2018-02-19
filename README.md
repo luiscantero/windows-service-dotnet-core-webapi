@@ -1,6 +1,6 @@
 # Windows Service hosting ASP.NET Core Web API v2.0
 ## Description
-- Visual Studio 2017 project to demo how to host a Web API locally as a Windows Service.
+- Visual Studio 2017 project to demo how to host a Web API or WebSockets server locally as a Windows Service.
 - Possible uses:
   - Replace ActiveX dependencies blocking the migration to modern browsers.
   - Use as REST wrapper for legacy 32- or 64-bit DLLs.
