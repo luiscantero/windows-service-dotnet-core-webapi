@@ -34,6 +34,11 @@ namespace FileWinSvcWebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            // https://docs.microsoft.com/en-us/aspnet/core/security/cors
+            app.UseCors(builder =>
+                        builder.WithOrigins("http://localhost", // Explicit domain and standard port.
+                                            "http://localhost:5111")); // Explicit domain and port.
+
             app.UseMvc();
         }
     }
