@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        // Web API test.
+        (function () {
+            var url = "http://localhost:60001/api/files/test.txt";
+            var client = new XMLHttpRequest();
+            client.open("get", url);
+
+            client.onload = function () {
+                alert(client.responseText);
+            }
+
+            client.send();
+        })();
+
+        // WebSockets test.
+        (function () {
+            // Connect.
+            var socket = new WebSocket("ws://localhost:60001/wsecho");
+
+            // Connect handler.
+            socket.onopen = function () {
+                alert("Connected!");
+
+                // Send message.
+                socket.send("Hello"); // String, binary.
+            }
+
+            // Receive handler.
+            socket.onmessage = function (e) {
+                alert("Reply: " + e.data);
+            }
+        })();
+
+    </script>
+</body>
+</html>
