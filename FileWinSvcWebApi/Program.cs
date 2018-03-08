@@ -2,14 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileWinSvcWebApi
 {
@@ -25,6 +20,9 @@ namespace FileWinSvcWebApi
 
         public static IWebHost BuildWebHost(string[] args)
         {
+            string exePath = Process.GetCurrentProcess().MainModule.FileName;
+            string directoryPath = Path.GetDirectoryName(exePath);
+
             var config = new ConfigurationBuilder()
                .AddJsonFile("hosting.json", optional: false)
                .Build();
@@ -32,6 +30,7 @@ namespace FileWinSvcWebApi
             var host = WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
                 //.UseUrls(new ConfigurationBuilder().AddEnvironmentVariables().Build()["server.urls"])
+                .UseContentRoot(directoryPath) // Avoid System.InvalidOperationException.
                 .UseStartup<Startup>()
                 .Build();
 

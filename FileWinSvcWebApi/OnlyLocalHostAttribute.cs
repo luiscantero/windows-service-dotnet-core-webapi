@@ -5,26 +5,23 @@ using System.Net;
 
 namespace FileWinSvcWebApi.Filters
 {
-    public class OnlyLocalHostAttribute : Attribute, IResourceFilter
+    public class OnlyLocalHostAttribute : Attribute, IAuthorizationFilter
     {
         //string _allowedIP = null;
 
-        //public OnlyLocalHostAttribute(string allowedIP)
+        //public OnlyLocalHostFilter(string allowedIP)
         //{
         //    _allowedIP = allowedIP;
         //}
 
-        public void OnResourceExecuting(ResourceExecutingContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             // If IP is not localhost, show 403.
-            if (!IPAddress.IsLoopback(context.HttpContext.Connection.RemoteIpAddress))
+            bool isLocalHost = IPAddress.IsLoopback(context.HttpContext.Connection.RemoteIpAddress);
+            if (!isLocalHost)
             {
                 context.Result = new StatusCodeResult((int)HttpStatusCode.Forbidden);
             }
-        }
-
-        public void OnResourceExecuted(ResourceExecutedContext context)
-        {
         }
     }
 }

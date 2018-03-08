@@ -8,9 +8,9 @@
   - Access specialized hardware such as printers, scanners etc.
 - Security:
   - There are three obvious attack vectors (the may be more):
-  - 1. An Internet/Intranet website could try to contact the local server: Cross-domain access would be blocked by the browser by default. CORS should be used to restrict browser access to approved domains (white list), sample included.
-  - 2. A device on the network could try to access the local server: Use a firewall to protect the port on which the local server is running. Also, a sample MVC filter to allow only requests from localhost is included.
-  - 3. Virus/trojan on the local machine could try to access the local server to perform actions as the account running the service. This scenario is more difficult to defend, as the attacker already has a process running on the target machine. A pre-shared key or related cryptographic mechanism involving authentication could be used to avoid this attack.
+  1. An Internet/Intranet website could try to contact the local server: Cross-domain access would be blocked by the browser by default. CORS should be used to restrict browser access to approved domains (white list), sample included.
+  2. A device on the network could try to access the local server: Use a firewall to protect the port on which the local server is running. Also, a sample MVC filter to allow only requests from localhost is included.
+  3. Virus/trojan on the local machine could try to access the local server to perform actions as the account running the service. This scenario is more difficult to defend, as the attacker already has a process running on the target machine. A pre-shared key or related cryptographic mechanism involving authentication could be used to avoid this attack.
 
 ## Steps
 1. Create projects

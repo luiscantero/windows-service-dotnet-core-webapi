@@ -11,10 +11,10 @@ namespace FileWinSvcWebApi.Controllers
         const string FOLDER = @"C:\Temp\";
 
         // GET api/files/test.txt
-        [HttpGet("{id}")]
-        public string Get(string id)
+        [HttpGet("{fileName}")]
+        public string Get([FromRoute] string fileName)
         {
-            string file = Path.Combine(FOLDER, id);
+            string file = Path.Combine(FOLDER, fileName);
             string contents = "";
 
             if (System.IO.File.Exists(file))
