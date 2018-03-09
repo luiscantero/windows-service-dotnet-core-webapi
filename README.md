@@ -68,8 +68,9 @@
 
 8. Debug start issues
 - Event viewer: `eventvwr`
-- Windows protocolls --> Application --> Error with Source `.NET Runtime`
+- Windows protocols --> Application --> Error with Source `.NET Runtime`
 - Recompile and restart service, reinstalling not necessary
+- Can also debug by starting in VS
 
 ### License
 [MIT](http://opensource.org/licenses/MIT)

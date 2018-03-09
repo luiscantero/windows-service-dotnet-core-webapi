@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -41,32 +42,43 @@ namespace FileWinSvcWebApi
                         builder.WithOrigins("http://localhost", // Explicit domain and standard port.
                                             "http://localhost:5111")); // Explicit domain and port.
 
-            app.UseMvc();
+            UseWebSockets(app);
 
-            MapWebSocketsApp(app);
+            app.UseMvc();
         }
 
-        private void MapWebSocketsApp(IApplicationBuilder app)
+        private void UseWebSockets(IApplicationBuilder app)
         {
-            app.Map("/wsecho", managedWebSocketsApp =>
+            var webSocketOptions = new WebSocketOptions()
             {
-                managedWebSocketsApp.UseWebSockets(new WebSocketOptions { });
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 4 * 1024
+            };
+            app.UseWebSockets(webSocketOptions);
 
-                managedWebSocketsApp.Use(async (context, next) =>
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path == "/wsecho")
                 {
                     if (context.WebSockets.IsWebSocketRequest)
                     {
                         Console.WriteLine("Echo server at: " + context.Request.PathBase);
-                        var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await Echo(webSocket);
-                        return;
+                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        await Echo(context, webSocket);
                     }
+                    else
+                    {
+                        context.Response.StatusCode = 400;
+                    }
+                }
+                else
+                {
                     await next();
-                });
+                }
             });
         }
 
-        private async Task Echo(WebSocket webSocket)
+        private async Task Echo(HttpContext context, WebSocket webSocket)
         {
             byte[] buffer = new byte[1024 * 4];
             var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
