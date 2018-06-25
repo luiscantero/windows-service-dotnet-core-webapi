@@ -31,6 +31,7 @@ namespace FileWinSvcWebApi
             }
 
             // https://docs.microsoft.com/en-us/aspnet/core/security/cors
+            // Requires request to include "Origin" header.
             app.UseCors(builder =>
                         builder.WithOrigins("http://localhost", // Explicit domain and standard port.
                                             "http://localhost:5111")); // Explicit domain and port.

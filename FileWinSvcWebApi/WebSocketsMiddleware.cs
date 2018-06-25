@@ -9,7 +9,7 @@ namespace FileWinSvcWebApi
 {
     public class WebSocketsMiddleware
     {
-        RequestDelegate _next;
+        private readonly RequestDelegate _next;
 
         public WebSocketsMiddleware(RequestDelegate next) => _next = next;
 
