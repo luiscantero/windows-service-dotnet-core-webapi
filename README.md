@@ -1,6 +1,6 @@
-# Windows Service hosting ASP.NET Core Web API v2.0
+# Windows Service hosting ASP.NET Core Web API v2.2
 ## Description
-- Visual Studio 2017 project to demo how to host a Web API or WebSockets server locally as a Windows Service.
+- Visual Studio 2019 project to demo how to host a Web API or WebSockets server locally as a Windows Service.
 - Possible uses:
   - Replace ActiveX dependencies blocking the migration to modern browsers.
   - Use as REST wrapper for legacy 32- or 64-bit DLLs.
@@ -49,9 +49,6 @@
 5. Copy Web API bootstrapping code from `Program.cs` to the same file in the Windows Service, make sure an `IWebHost` is returned to be able to call `.RunAsService()`.
 
 6. Install/uninstall service
-- Copy `libuv.dll` from `\packages\Libuv.1.10.0\runtimes\win-<x86|x64>\native` to compile output folder
-- Use x86 version when compiling Windows Service as x68 or Any CPU, otherwise x64, configure under Properties --> Build --> Platform Target
-
 - Open Admin Command Prompt
   - cd to folder containing `FileWinSvcWebApi.exe`, e.g. bin\<Debug|Release>\
 
