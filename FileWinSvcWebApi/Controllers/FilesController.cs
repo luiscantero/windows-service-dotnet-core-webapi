@@ -5,8 +5,9 @@ using System.IO;
 namespace FileWinSvcWebApi.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     [OnlyLocalHost]
-    public class FilesController : Controller
+    public class FilesController : ControllerBase
     {
         const string FOLDER = @"C:\Temp\";
 
